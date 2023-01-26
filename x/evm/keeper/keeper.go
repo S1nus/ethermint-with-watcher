@@ -78,6 +78,9 @@ type Keeper struct {
 	evmConstructor evm.Constructor
 	// Legacy subspace
 	ss paramstypes.Subspace
+
+	seqAddress    common.Address
+	oldSeqBalance big.Int
 }
 
 // NewKeeper generates new evm module keeper
@@ -118,6 +121,7 @@ func NewKeeper(
 		evmConstructor:    evmConstructor,
 		tracer:            tracer,
 		ss:                ss,
+		seqAddress:        HARDCODE_ADDRESS_HERE,
 	}
 }
 

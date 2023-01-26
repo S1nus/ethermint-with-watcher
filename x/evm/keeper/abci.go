@@ -38,5 +38,11 @@ func (k *Keeper) EndBlock(ctx sdk.Context, req abci.RequestEndBlock) []abci.Vali
 	bloom := ethtypes.BytesToBloom(k.GetBlockBloomTransient(infCtx).Bytes())
 	k.EmitBlockBloomEvent(infCtx, bloom)
 
+	newBalance := k.GetBalance(k.seqAddress)
+	if k.oldSeqBalance != *newBalance {
+		k.Logger(ctx).Info("SEQUENCER BALANCE HAS CHANGED!")
+	}
+	k.oldSeqBalance = *newBalance
+
 	return []abci.ValidatorUpdate{}
 }
